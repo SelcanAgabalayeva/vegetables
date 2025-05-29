@@ -11,12 +11,14 @@ public class SubCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name; // e.g. Apple, Pear, Strawberry, Grape
-
+    private String name;
+    @Transient
+    private int productCount;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category parentCategory;
 
     @OneToMany(mappedBy = "subCategory")
     private List<Product> products;
+
 }

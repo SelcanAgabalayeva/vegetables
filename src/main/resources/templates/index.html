@@ -110,7 +110,9 @@
                                     <div class="col-md-6 col-lg-4 col-xl-3" th:each="product : ${products}">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
+                                                <a th:href="'/shop/detail/'+${product.id}">
                                                 <img th:src="@{${product.imageUrl}}" class="img-fluid w-100 rounded-top" alt="">
+                                                </a>
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
                                                  style="top: 10px; left: 10px;" th:text="${product.category.name}">Category</div>
@@ -141,7 +143,9 @@
                                          th:if="${product.category.id} == ${category.id}">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
+                                                <a th:href="'/shop/detail/'+${product.id}">
                                                 <img th:src="@{${product.imageUrl}}" class="img-fluid w-100 rounded-top" alt="">
+                                                </a>
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
                                                  style="top: 10px; left: 10px;" th:text="${product.category.name}">Category</div>
@@ -205,7 +209,9 @@
                 <div class="border border-primary rounded position-relative vesitable-item"  th:if="${product.category.id == 1}">
 
                     <div class="vesitable-img">
+                        <a th:href="'/shop/detail/'+${product.id}">
                         <img  th:src="@{${product.imageUrl}}" class="img-fluid w-100 rounded-top" alt="">
+                        </a>
                     </div>
                     <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;" th:text="${product.category.name}">>Vegetable</div>
                     <div class="p-4 rounded-bottom">
@@ -267,7 +273,9 @@
                     <div class="p-4 rounded bg-light">
                         <div class="row align-items-center">
                             <div class="col-6">
+                                <a th:href="'/shop/detail/'+${product.id}">
                                 <img  th:src="@{${product.imageUrl}}" class="img-fluid rounded-circle w-100" alt="">
+                                </a>
                             </div>
                             <div class="col-6">
                                 <h4 th:text="${product.name}">Product Name</h4>

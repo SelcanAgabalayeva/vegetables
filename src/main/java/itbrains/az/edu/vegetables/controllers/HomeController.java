@@ -9,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -21,8 +23,8 @@ public class HomeController {
     private final FeaturElementService featurElementService;
     private final BannerService bannerService;
     private final TestimonialService testimonialService;
-
-    public HomeController(ProductService productService, CategoryService categoryService, ModelMapper modelMapper, SliderService sliderService, FeaturService featurService, FeaturElementService featurElementService, BannerService bannerService, TestimonialService testimonialService) {
+    private final SubCategoryService subCategoryService;
+    public HomeController(ProductService productService, CategoryService categoryService, ModelMapper modelMapper, SliderService sliderService, FeaturService featurService, FeaturElementService featurElementService, BannerService bannerService, TestimonialService testimonialService, SubCategoryService subCategoryService) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.sliderService = sliderService;
@@ -30,6 +32,7 @@ public class HomeController {
         this.featurElementService = featurElementService;
         this.bannerService = bannerService;
         this.testimonialService = testimonialService;
+        this.subCategoryService = subCategoryService;
     }
 
     @GetMapping("/")
@@ -62,7 +65,50 @@ public class HomeController {
     }
 
     @GetMapping("/shop")
-    public String shop() {
+    public String shop(@RequestParam(defaultValue = "0") int page,
+                       @RequestParam(defaultValue = "0") int catPage,
+                       @RequestParam(required = false) Long categoryId,
+
+                       Model model) {
+
+        int productPageSize = 3;
+        int categoryPageSize = 4;
+
+        // ======= CATEGORY SECTION =========
+        List<Category> allCategories = categoryService.getAllCategories();
+        int totalCategories = allCategories.size();
+        int totalCategoryPages = (int) Math.ceil((double) totalCategories / categoryPageSize);
+        int catStart = catPage * categoryPageSize;
+        int catEnd = Math.min(catStart + categoryPageSize, totalCategories);
+        List<Category> paginatedCategories = allCategories.subList(catStart, catEnd);
+
+        // ======= PRODUCT SECTION =========
+        List<ProductDto> allProducts;
+        if (categoryId != null) {
+            allProducts = productService.getProductsByCategoryId(categoryId);
+        } else {
+            allProducts = productService.getallProducts();
+        }
+        int totalProducts = allProducts.size();
+        int totalProductPages = (int) Math.ceil((double) totalProducts / productPageSize);
+        int start = page * productPageSize;
+        int end = Math.min(start + productPageSize, totalProducts);
+        List<ProductDto> paginatedProducts = allProducts.subList(start, end);
+
+        // ======= MODEL SETUP =========
+        List<SubCategoryDto> subCategories = subCategoryService.getAllSubCategoriesWithProductCount();
+        model.addAttribute("products", paginatedProducts);
+        model.addAttribute("subCategories", subCategories);
+        model.addAttribute("categories", paginatedCategories);
+
+        model.addAttribute("selectedCategoryId", categoryId);
+
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalProductPages);
+
+        model.addAttribute("catPage", catPage);
+        model.addAttribute("totalCategoryPages", totalCategoryPages);
+
         return "shop.html";
 
     }

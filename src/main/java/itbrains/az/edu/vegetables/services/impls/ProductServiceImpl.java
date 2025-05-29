@@ -3,22 +3,29 @@ package itbrains.az.edu.vegetables.services.impls;
 import itbrains.az.edu.vegetables.dtos.BestSellerProductDto;
 import itbrains.az.edu.vegetables.dtos.CategoryDto;
 import itbrains.az.edu.vegetables.dtos.ProductDto;
+import itbrains.az.edu.vegetables.dtos.ShopDetailDto;
 import itbrains.az.edu.vegetables.models.Product;
 import itbrains.az.edu.vegetables.repositories.CategoryRepository;
 import itbrains.az.edu.vegetables.repositories.ProductRepository;
 import itbrains.az.edu.vegetables.services.ProductService;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.stream.Collectors;
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final ModelMapper modelMapper;
 
-    public ProductServiceImpl(ProductRepository productRepository, CategoryRepository categoryRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, CategoryRepository categoryRepository, ModelMapper modelMapper) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -68,4 +75,31 @@ public class ProductServiceImpl implements ProductService {
                 })
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<ProductDto> getProductsByCategoryId(Long categoryId) {
+        List<Product> products = productRepository.findByCategoryId(categoryId);
+        return products.stream()
+                .map(product -> new ProductDto(
+                        product.getId(),
+                        product.getName(),
+                        product.getDescription(),
+                        product.getImageUrl(),
+                        product.getPrice(),
+                        product.getRate(),
+                        new CategoryDto(
+                                product.getCategory().getId(),
+                                product.getCategory().getName()
+                        )
+                )).collect(Collectors.toList());
+    }
+
+    @Override
+    public ShopDetailDto getShopDetail(Long id) {
+        Product product=productRepository.findById(id).orElseThrow();
+        ShopDetailDto shopDetailDto=modelMapper.map(product,ShopDetailDto.class);
+        return shopDetailDto;
+    }
+
+
 }
