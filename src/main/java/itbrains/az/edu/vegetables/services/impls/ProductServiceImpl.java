@@ -64,7 +64,7 @@ public class ProductServiceImpl implements ProductService {
                     dto.setDescription(product.getDescription());
                     dto.setImageUrl(product.getImageUrl());
                     dto.setPrice(product.getPrice());
-                    dto.setRate(product.getRate()); // Əgər Dto-da rate String-dirsə
+                    dto.setRate(product.getRate());
 
                     CategoryDto categoryDto = new CategoryDto();
                     categoryDto.setId(product.getCategory().getId());
@@ -99,6 +99,30 @@ public class ProductServiceImpl implements ProductService {
         Product product=productRepository.findById(id).orElseThrow();
         ShopDetailDto shopDetailDto=modelMapper.map(product,ShopDetailDto.class);
         return shopDetailDto;
+    }
+    private ProductDto mapToDto(Product product) {
+        ProductDto dto = new ProductDto();
+        dto.setId(product.getId());
+        dto.setName(product.getName());
+        dto.setDescription(product.getDescription());
+        dto.setPrice(product.getPrice());
+        dto.setImageUrl(product.getImageUrl());
+        if (product.getSubCategory() != null && product.getCategory() != null) {
+            CategoryDto categoryDto = new CategoryDto();
+            categoryDto.setId(product.getCategory().getId());
+            categoryDto.setName(product.getCategory().getName());
+            dto.setCategory(categoryDto);
+        } else {
+            dto.setCategory(null);
+        }
+        return dto;
+    }
+
+    @Override
+    public ProductDto getProductById(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+        return mapToDto(product);
     }
 
 

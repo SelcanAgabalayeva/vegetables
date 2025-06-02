@@ -15,4 +15,5 @@ public class ProductDto {
     private double price;
     private double rate;
     private CategoryDto category;
+
 }

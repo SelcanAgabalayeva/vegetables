@@ -19,4 +19,6 @@ public interface ProductService {
 
     ShopDetailDto getShopDetail(Long id);
 
+    ProductDto getProductById(Long id);
+
 }
