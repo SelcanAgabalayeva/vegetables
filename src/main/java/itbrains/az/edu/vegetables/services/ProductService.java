@@ -2,6 +2,7 @@ package itbrains.az.edu.vegetables.services;
 
 import itbrains.az.edu.vegetables.dtos.BestSellerProductDto;
 import itbrains.az.edu.vegetables.dtos.ProductDto;
+import itbrains.az.edu.vegetables.dtos.ReviewDto;
 import itbrains.az.edu.vegetables.dtos.ShopDetailDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,5 +21,6 @@ public interface ProductService {
     ShopDetailDto getShopDetail(Long id);
 
     ProductDto getProductById(Long id);
+
 
 }

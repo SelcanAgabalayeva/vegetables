@@ -11,25 +11,19 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "products")
-public class Product {
+@Table(name = "carts")
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String description;
-    @Column(length = 20000)
-    private String longDescription;
-    private String origin;
     private String imageUrl;
+    private int quantity;
     private double price;
-    private String minWeight;
-    private String weight;
-    private double rate;
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
+    @JoinColumn(name = "user_id")
+    private User user;
     @ManyToOne
-    @JoinColumn(name = "subcategory_id")
-    private SubCategory subCategory;
+    @JoinColumn(name = "product_id")
+    private Product product;
 }

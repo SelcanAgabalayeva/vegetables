@@ -7,13 +7,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BannerDto {
+public class CartItemDto {
     private Long id;
-    private String title;
-    private String subtitle;
-    private String description;
+    private Long productId;
+    private String name;
     private String imageUrl;
-    private String price;
-    private Integer number;
-
+    private int quantity;
+    private double price;
+    public double getTotal() {
+        return quantity * price;
+    }
 }

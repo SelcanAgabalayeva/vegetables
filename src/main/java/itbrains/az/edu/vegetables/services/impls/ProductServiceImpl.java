@@ -41,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
                         product.getRate(),
 
 
-                        new CategoryDto( // Category obyektindən CategoryDto yarat
+                        new CategoryDto(
                                 product.getCategory().getId(),
                                 product.getCategory().getName()
 

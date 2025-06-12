@@ -25,6 +25,7 @@ public class BannerServiceImpl implements BannerService {
         bannerDto.setPrice(banner.getPrice());
         bannerDto.setImageUrl(banner.getImageUrl());
         bannerDto.setNumber(banner.getNumber());
+
         return bannerDto;
     }
 }

@@ -74,7 +74,6 @@ public class HomeController {
         int productPageSize = 3;
         int categoryPageSize = 4;
 
-        // ======= CATEGORY SECTION =========
         List<Category> allCategories = categoryService.getAllCategories();
         int totalCategories = allCategories.size();
         int totalCategoryPages = (int) Math.ceil((double) totalCategories / categoryPageSize);
@@ -82,7 +81,6 @@ public class HomeController {
         int catEnd = Math.min(catStart + categoryPageSize, totalCategories);
         List<Category> paginatedCategories = allCategories.subList(catStart, catEnd);
 
-        // ======= PRODUCT SECTION =========
         List<ProductDto> allProducts;
         if (categoryId != null) {
             allProducts = productService.getProductsByCategoryId(categoryId);
@@ -94,8 +92,6 @@ public class HomeController {
         int start = page * productPageSize;
         int end = Math.min(start + productPageSize, totalProducts);
         List<ProductDto> paginatedProducts = allProducts.subList(start, end);
-
-        // ======= MODEL SETUP =========
         List<SubCategoryDto> subCategories = subCategoryService.getAllSubCategoriesWithProductCount();
         model.addAttribute("products", paginatedProducts);
         model.addAttribute("subCategories", subCategories);
@@ -112,11 +108,7 @@ public class HomeController {
         return "shop.html";
 
     }
-    @GetMapping("/shop-detail")
-    public String shopDetail() {
-        return "shop-detail.html";
 
-    }
     @GetMapping("/testimonial")
     public String testimonial(Model model) {
         List<TestimonialDto> testimonials = testimonialService.getAllTestimonial();
@@ -129,9 +121,5 @@ public class HomeController {
         return "checkout.html";
 
     }
-    @GetMapping("/cart")
-    public String cart() {
-        return "cart.html";
 
-    }
 }
