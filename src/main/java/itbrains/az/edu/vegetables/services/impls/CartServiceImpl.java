@@ -1,5 +1,6 @@
 package itbrains.az.edu.vegetables.services.impls;
 
+import itbrains.az.edu.vegetables.dtos.CartItemDto;
 import itbrains.az.edu.vegetables.models.Cart;
 import itbrains.az.edu.vegetables.models.Product;
 import itbrains.az.edu.vegetables.models.User;
@@ -10,6 +11,7 @@ import itbrains.az.edu.vegetables.services.CartService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -82,5 +84,21 @@ private final ProductRepository productRepository;
         }
 
         cartRepository.save(existingCartItem);
+    }
+
+    @Override
+    public List<CartItemDto> findItems(String name) {
+        List<Cart> carts = cartRepository.findByUserUsername(name);
+
+
+        return carts.stream().map(cart -> {
+            CartItemDto dto = new CartItemDto();
+            dto.setProductId(cart.getProduct().getId());
+            dto.setName(cart.getProduct().getName());
+            dto.setImageUrl(cart.getProduct().getImageUrl());
+            dto.setQuantity(cart.getQuantity());
+            dto.setPrice(cart.getProduct().getPrice());
+            return dto;
+        }).collect(Collectors.toList());
     }
 }

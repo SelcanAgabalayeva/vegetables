@@ -1,5 +1,6 @@
 package itbrains.az.edu.vegetables.services;
 
+import itbrains.az.edu.vegetables.dtos.CartItemDto;
 import itbrains.az.edu.vegetables.models.Cart;
 
 import java.util.List;
@@ -16,4 +17,7 @@ public interface CartService {
     void deleteItem(String username, Long productId);
 
     void addToCart(String username, Long productId);
+
+    List<CartItemDto> findItems(String name);
+
 }

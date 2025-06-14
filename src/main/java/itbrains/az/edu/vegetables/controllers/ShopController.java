@@ -30,7 +30,7 @@ public class ShopController {
         List<Review> reviews = reviewRepository.findByProductId(id);
         model.addAttribute("product", product);
 
-        // Related products by same category
+
         List<ProductDto> relatedProducts = productService.getProductsByCategoryId(product.getCategory().getId())
                 .stream()
                 .filter(p -> !p.getId().equals(product.getId())) // Eyni məhsul çıxarılır
@@ -40,6 +40,7 @@ public class ShopController {
         model.addAttribute("relatedProducts", relatedProducts);
         model.addAttribute("product",shopDetailDto);
         model.addAttribute("reviews", reviews);
+
         return "shop-detail.html";
     }
 }

@@ -28,13 +28,13 @@ public class SecurityConfig {
         http
                 .csrf(c -> c.disable())
                 .authorizeHttpRequests(c -> c
-                        .requestMatchers("/cart/**").authenticated() // Bütün cart URL-ləri üçün login tələb olunur
+                        .requestMatchers("/cart/**", "/checkout/**").authenticated() // Bütün cart URL-ləri üçün login tələb olunur
                         .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
                         .failureUrl("/login?error=true")
-                        .defaultSuccessUrl("/", true)
+                        .defaultSuccessUrl("/cart", true)
                 )
                 .logout(log -> log
                         .logoutSuccessUrl("/login?logout=true")
