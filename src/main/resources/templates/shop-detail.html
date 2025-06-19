@@ -31,12 +31,14 @@
                             <h4 class="fw-bold mb-3" th:text="${product.name}">Brocoli</h4>
                             <p class="mb-3" th:text="${product.category.name}">Category: Vegetables</p>
                             <h5 class="fw-bold mb-3"  th:text="'$' + ${product.price}">3,35 $</h5>
-                            <div class="d-flex mb-4">
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star"></i>
+                            <div class="d-flex my-3">
+                             <span th:each="i : ${#numbers.sequence(1,5)}"
+                                   th:class="${i <= T(java.lang.Math).floor(product.rate)} ?
+                                   'fa fa-star text-primary' :
+                                      (${i - product.rate <= 0.5} ?
+                                     'fa fa-star-half-alt text-primary' :
+                                     'fa fa-star text-muted')">
+                              </span>
                             </div>
                             <p  th:text="${product.description}" class="mb-4">The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic words etc.</p>
 
@@ -53,7 +55,12 @@
                                     </button>
                                 </div>
                             </div>
-                            <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                            <form action="/cart/add" method="post" th:object="${product}">
+                                <input type="hidden" name="productId" th:value="${product.id}" />
+                                <button type="submit" class="btn border border-secondary rounded-pill px-3 text-primary">
+                                    <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                                </button>
+                            </form>
                         </div>
                         <div class="col-lg-12">
                             <nav>
@@ -179,162 +186,33 @@
                                 <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
                                 <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
                             </div>
-                            <div class="mb-4">
-                                <h4>Categories</h4>
-                                <ul class="list-unstyled fruite-categorie">
-                                    <li>
-                                        <div class="d-flex justify-content-between fruite-name">
-                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Apples</a>
-                                            <span>(3)</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="d-flex justify-content-between fruite-name">
-                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Oranges</a>
-                                            <span>(5)</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="d-flex justify-content-between fruite-name">
-                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Strawbery</a>
-                                            <span>(2)</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="d-flex justify-content-between fruite-name">
-                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Banana</a>
-                                            <span>(8)</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="d-flex justify-content-between fruite-name">
-                                            <a href="#"><i class="fas fa-apple-alt me-2"></i>Pumpkin</a>
-                                            <span>(5)</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+
                         </div>
                         <div class="col-lg-12">
-                            <h4 class="mb-4">Featured products</h4>
-                            <div class="d-flex align-items-center justify-content-start">
-                                <div class="rounded" style="width: 100px; height: 100px;">
-                                    <img src="/front/img/featur-1.jpg" class="img-fluid rounded" alt="Image">
-                                </div>
-                                <div>
-                                    <h6 class="mb-2">Big Banana</h6>
-                                    <div class="d-flex mb-2">
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                    <div class="d-flex mb-2">
-                                        <h5 class="fw-bold me-2">2.99 $</h5>
-                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-start">
-                                <div class="rounded" style="width: 100px; height: 100px;">
-                                    <img src="/front/img/featur-2.jpg" class="img-fluid rounded" alt="">
-                                </div>
-                                <div>
-                                    <h6 class="mb-2">Big Banana</h6>
-                                    <div class="d-flex mb-2">
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                    <div class="d-flex mb-2">
-                                        <h5 class="fw-bold me-2">2.99 $</h5>
-                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-start">
-                                <div class="rounded" style="width: 100px; height: 100px;">
-                                    <img src="/front/img/featur-3.jpg" class="img-fluid rounded" alt="">
-                                </div>
-                                <div>
-                                    <h6 class="mb-2">Big Banana</h6>
-                                    <div class="d-flex mb-2">
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                    <div class="d-flex mb-2">
-                                        <h5 class="fw-bold me-2">2.99 $</h5>
-                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-start">
+                            <h4 class="mb-3">Featured products</h4>
+
+                            <div th:each="product : ${featuredProducts}" class="d-flex align-items-center justify-content-start mb-3">
                                 <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                    <img src="/front/img/vegetable-item-4.jpg" class="img-fluid rounded" alt="">
+                                    <img th:src="@{${product.imageUrl}}" class="img-fluid rounded" th:alt="${product.name}" />
                                 </div>
                                 <div>
-                                    <h6 class="mb-2">Big Banana</h6>
-                                    <div class="d-flex mb-2">
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star"></i>
+                                    <h6 class="mb-2" th:text="${product.name}">Product Name</h6>
+                                    <div class="d-flex my-3">
+    <span th:each="i : ${#numbers.sequence(1,5)}"
+          th:class="${i <= T(java.lang.Math).floor(product.rate)} ?
+                     'fa fa-star text-primary' :
+                     (${i - product.rate <= 0.5} ?
+                         'fa fa-star-half-alt text-primary' :
+                         'fa fa-star text-muted')">
+    </span>
                                     </div>
                                     <div class="d-flex mb-2">
-                                        <h5 class="fw-bold me-2">2.99 $</h5>
-                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-start">
-                                <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                    <img src="/front/img/vegetable-item-5.jpg" class="img-fluid rounded" alt="">
-                                </div>
-                                <div>
-                                    <h6 class="mb-2">Big Banana</h6>
-                                    <div class="d-flex mb-2">
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                    <div class="d-flex mb-2">
-                                        <h5 class="fw-bold me-2">2.99 $</h5>
-                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
+                                        <h5 class="fw-bold me-2" th:text="${product.price} + ' $'">2.99 $</h5>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-start">
-                                <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                    <img src="/front/img/vegetable-item-6.jpg" class="img-fluid rounded" alt="">
-                                </div>
-                                <div>
-                                    <h6 class="mb-2">Big Banana</h6>
-                                    <div class="d-flex mb-2">
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star text-secondary"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                    <div class="d-flex mb-2">
-                                        <h5 class="fw-bold me-2">2.99 $</h5>
-                                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-center my-4">
-                                <a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

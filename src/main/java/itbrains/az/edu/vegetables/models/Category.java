@@ -20,6 +20,4 @@ public class Category {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "parentCategory")
-    private List<SubCategory> subCategories;
 }

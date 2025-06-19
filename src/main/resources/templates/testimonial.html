@@ -37,12 +37,14 @@
                             <div class="ms-4 d-block">
                                 <h4 class="text-dark" th:text="${testimonial.clientName}">Client Name</h4>
                                 <p class="m-0 pb-3" th:text="${testimonial.profession}">Profession</p>
-                                <div class="d-flex pe-5">
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star"></i>
+                                <div class="d-flex my-3">
+    <span th:each="i : ${#numbers.sequence(1,5)}"
+          th:class="${i <= T(java.lang.Math).floor(testimonial.rate)} ?
+                     'fa fa-star text-primary' :
+                     (${i - testimonial.rate <= 0.5} ?
+                         'fa fa-star-half-alt text-primary' :
+                         'fa fa-star text-muted')">
+    </span>
                                 </div>
                             </div>
                         </div>

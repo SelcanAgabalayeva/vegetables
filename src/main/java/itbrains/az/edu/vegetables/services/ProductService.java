@@ -1,16 +1,13 @@
 package itbrains.az.edu.vegetables.services;
 
 import itbrains.az.edu.vegetables.dtos.BestSellerProductDto;
-import itbrains.az.edu.vegetables.dtos.ProductDto;
-import itbrains.az.edu.vegetables.dtos.ReviewDto;
+import itbrains.az.edu.vegetables.dtos.product.ProductDto;
 import itbrains.az.edu.vegetables.dtos.ShopDetailDto;
-import itbrains.az.edu.vegetables.models.Product;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import itbrains.az.edu.vegetables.dtos.product.ProductCreateDto;
+import itbrains.az.edu.vegetables.dtos.product.ProductDashboardDto;
+import itbrains.az.edu.vegetables.dtos.product.ProductUpdateDto;
 
-import java.awt.print.Pageable;
 import java.util.List;
-import java.util.Optional;
 
 public interface ProductService {
     List<ProductDto> getallProducts();
@@ -25,6 +22,15 @@ public interface ProductService {
     ProductDto getProductById(Long id);
 
 
+    List<ProductDto> getTopInCartProducts(int limit);
 
+    List<ProductDashboardDto> getProductAll();
 
+    void createProduct(ProductCreateDto productCreateDto);
+
+    ProductUpdateDto getUpdateProduct(Long id);
+
+    void updateProduct(Long id, ProductUpdateDto productUpdateDto);
+
+    void deleteProduct(Long id);
 }

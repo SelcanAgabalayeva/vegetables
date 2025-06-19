@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/dashboard/layout}">
+<head>
+  <title>Home</title>
+  <!-- Font Awesome CDN -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+<div layout:fragment="content">
+  <div class="container-fluid position-relative d-flex p-0">
+    <!-- Content Start -->
+    <div class="content w-100">
+      <!-- Navbar Start -->
+      <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+        <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+          <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+        </a>
+        <a href="#" class="sidebar-toggler flex-shrink-0">
+          <i class="fa fa-bars"></i>
+        </a>
+        <div class="navbar-nav align-items-center ms-auto">
+          <!-- You can leave profile items here if needed -->
+        </div>
+      </nav>
+      <!-- Navbar End -->
+
+      <!-- Main Content Start -->
+      <div class="p-4">
+
+
+        <div class="table-responsive bg-secondary rounded p-3">
+          <form th:action="@{/admin/product/edit/{id}(id=${product.id})}" th:object="${product}" method="post">
+
+            <label>Name:</label>
+            <input type="text" th:field="*{name}" placeholder="Name" required/><br>
+            <label>Description:</label>
+            <input type="text" th:field="*{description}" step="0.01" required/><br>
+            <label>LongDescription:</label>
+            <input type="text" th:field="*{longDescription}" required/><br>
+            <label>Origin:</label>
+            <input type="text" th:field="*{origin}" /><br>
+            <label>ImageUrl:</label>
+            <input type="text" th:field="*{imageUrl}" /><br>
+            <label>price:</label>
+            <input type="text" th:field="*{price}" required/><br>
+            <label>Rate:</label>
+            <input type="text" th:field="*{rate}" /><br>
+            <label>Weight:</label>
+            <input type="text" th:field="*{weight}" /><br>
+            <label>MinWeight:</label>
+            <input type="text" th:field="*{minWeight}" /><br>
+            <select th:field="*{categoryId}" required>
+              <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+            </select>
+
+            <button type="submit" class="btn btn-outline-warning">Update</button>
+          </form>
+
+        </div>
+      </div>
+      <!-- Main Content End -->
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

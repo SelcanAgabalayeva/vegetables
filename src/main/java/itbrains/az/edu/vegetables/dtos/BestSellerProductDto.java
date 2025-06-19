@@ -1,5 +1,6 @@
 package itbrains.az.edu.vegetables.dtos;
 
+import itbrains.az.edu.vegetables.dtos.category.CategoryDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

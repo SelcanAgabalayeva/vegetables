@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/dashboard/layout}">
+<head>
+    <title>Home</title>
+    <!-- Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid position-relative d-flex p-0">
+        <!-- Content Start -->
+        <div class="content w-100">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <div class="navbar-nav align-items-center ms-auto">
+                    <!-- You can leave profile items here if needed -->
+                </div>
+            </nav>
+            <!-- Navbar End -->
+
+            <!-- Main Content Start -->
+            <div class="p-4">
+
+
+                <div class="table-responsive bg-secondary rounded p-3">
+                    <form th:action="@{'/admin/product/delete/' + ${id}}" method="post">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title text-danger">Are you sure?</h3>
+                                <div class="d-flex">
+                                    <a class="btn btn-secondary" th:href="@{/admin/product}">Cancel</a>
+                                    <input type="submit" value="Delete" class="btn btn-danger"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <!-- Main Content End -->
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/dashboard/layout}">
+<head>
+    <title>Home</title>
+    <!-- Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid position-relative d-flex p-0">
+        <!-- Content Start -->
+        <div class="content w-100">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <div class="navbar-nav align-items-center ms-auto">
+                    <!-- You can leave profile items here if needed -->
+                </div>
+            </nav>
+            <!-- Navbar End -->
+
+            <!-- Main Content Start -->
+            <div class="p-4">
+                <h2 class="mb-3">Products</h2>
+                <div class="mb-3">
+                    <a th:href="@{/admin/product/create}"
+                       sec:authorize="hasAuthority('product:create')"
+                       class="btn btn-primary">Məhsul Əlavə Et</a>
+                </div>
+
+                <div class="table-responsive bg-secondary rounded p-3">
+                    <table class="table table-bordered table-hover text-white">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">LongDescription</th>
+                            <th scope="col">Origin</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Rate</th>
+                            <th scope="col">Weight</th>
+                            <th scope="col">Min Weight</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="product, iterStat : ${products}">
+                            <th scope="row" th:text="${iterStat.index + 1}">1</th>
+                            <td th:text="${product.name}">Name</td>
+                            <td th:text="${product.description}">Description</td>
+                            <td th:text="${product.longDescription}">LongDescription</td>
+                            <td th:text="${product.origin}">Origin</td>
+                            <td>
+                                <img th:src="@{${product.imageUrl}}" alt="Product Image" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
+                            </td>
+                            <td th:text="${product.price}">Price</td>
+                            <td th:text="${product.rate}">Rate</td>
+                            <td th:text="${product.weight}">Weight</td>
+                            <td th:text="${product.minWeight}">Min Weight</td>
+                            <td>
+                                <a th:href="@{'/admin/product/edit/' + ${product.id}}" class="btn btn-outline-warning btn-sm me-1">Update</a>
+                                <a th:href="@{'/admin/product/delete/' + ${product.id}}" class="btn btn-outline-danger btn-sm"
+                                   onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(products)}">
+                            <td colspan="10" class="text-center">No products found.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Main Content End -->
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

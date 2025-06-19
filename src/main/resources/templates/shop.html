@@ -54,78 +54,43 @@
                 <div class="col-lg-12">
                   <div class="mb-3">
                     <h4>Sub Categories</h4>
-                    <ul class="list-unstyled fruite-categorie">
-                      <li th:each="sub : ${subCategories}">
-                        <div class="d-flex justify-content-between fruite-name">
-                          <p th:text="${sub.name}">Apples</p>
-                          <span th:text="'(' + ${sub.productCount} + ')'">(3)</span>
-                        </div>
-                      </li>
+<!--                    <ul class="list-unstyled fruite-categorie">-->
+<!--                      <li th:each="sub : ${subCategories}">-->
+<!--                        <div class="d-flex justify-content-between fruite-name">-->
+<!--                          <p th:text="${sub.name}">Apples</p>-->
+<!--                          <span th:text="'(' + ${sub.productCount} + ')'">(3)</span>-->
+<!--                        </div>-->
+<!--                      </li>-->
 
-                    </ul>
+<!--                    </ul>-->
                   </div>
                 </div>
                 <div class="col-lg-12">
                   <h4 class="mb-3">Featured products</h4>
-                  <div class="d-flex align-items-center justify-content-start">
-                    <div class="rounded me-4" style="width: 100px; height: 100px;">
-                      <img src="/front/img/featur-1.jpg" class="img-fluid rounded" alt="">
-                    </div>
-                    <div>
-                      <h6 class="mb-2">Big Banana</h6>
-                      <div class="d-flex mb-2">
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star"></i>
-                      </div>
-                      <div class="d-flex mb-2">
-                        <h5 class="fw-bold me-2">2.99 $</h5>
-                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-start">
-                    <div class="rounded me-4" style="width: 100px; height: 100px;">
-                      <img src="/front/img/featur-2.jpg" class="img-fluid rounded" alt="">
-                    </div>
-                    <div>
-                      <h6 class="mb-2">Big Banana</h6>
-                      <div class="d-flex mb-2">
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star"></i>
-                      </div>
-                      <div class="d-flex mb-2">
-                        <h5 class="fw-bold me-2">2.99 $</h5>
-                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-start">
-                    <div class="rounded me-4" style="width: 100px; height: 100px;">
-                      <img src="/front/img/featur-3.jpg" class="img-fluid rounded" alt="">
-                    </div>
-                    <div>
-                      <h6 class="mb-2">Big Banana</h6>
-                      <div class="d-flex mb-2">
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star text-secondary"></i>
-                        <i class="fa fa-star"></i>
-                      </div>
-                      <div class="d-flex mb-2">
-                        <h5 class="fw-bold me-2">2.99 $</h5>
-                        <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                      </div>
-                    </div>
-                  </div>
 
+                  <div th:each="product : ${featuredProducts}" class="d-flex align-items-center justify-content-start mb-3">
+                    <div class="rounded me-4" style="width: 100px; height: 100px;">
+                      <img th:src="@{${product.imageUrl}}" class="img-fluid rounded" th:alt="${product.name}" />
+                    </div>
+                    <div>
+                      <h6 class="mb-2" th:text="${product.name}">Product Name</h6>
+                      <div class="d-flex my-3">
+                   <span th:each="i : ${#numbers.sequence(1,5)}"
+                    th:class="${i <= T(java.lang.Math).floor(product.rate)} ?
+                     'fa fa-star text-primary' :
+                     (${i - product.rate <= 0.5} ?
+                         'fa fa-star-half-alt text-primary' :
+                         'fa fa-star text-muted')">
+                       </span>
+                      </div>
+                      <div class="d-flex mb-2">
+                        <h5 class="fw-bold me-2" th:text="${product.price} + ' $'">2.99 $</h5>
+
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
               </div>
             </div>
             <div class="col-lg-9">
