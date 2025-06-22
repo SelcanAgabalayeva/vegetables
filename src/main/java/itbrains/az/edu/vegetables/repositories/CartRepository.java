@@ -30,5 +30,8 @@ public interface CartRepository extends JpaRepository<Cart,Long> {
     List<Product> findTopInCarts();
 
 
+
+    List<Cart> findByOrder_Id(Long orderId);
+
 }
 

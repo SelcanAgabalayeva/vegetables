@@ -1,6 +1,6 @@
 package itbrains.az.edu.vegetables.controllers;
 
-import itbrains.az.edu.vegetables.dtos.CouponDto;
+import itbrains.az.edu.vegetables.dtos.coupon.CouponDto;
 import itbrains.az.edu.vegetables.models.Cart;
 import itbrains.az.edu.vegetables.services.CartService;
 import itbrains.az.edu.vegetables.services.CouponService;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 

@@ -1,6 +1,6 @@
 package itbrains.az.edu.vegetables.services.impls;
 
-import itbrains.az.edu.vegetables.dtos.CartItemDto;
+import itbrains.az.edu.vegetables.dtos.order.CartItemDto;
 import itbrains.az.edu.vegetables.models.Cart;
 import itbrains.az.edu.vegetables.models.Product;
 import itbrains.az.edu.vegetables.models.User;

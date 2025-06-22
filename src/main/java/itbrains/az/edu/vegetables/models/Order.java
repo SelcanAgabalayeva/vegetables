@@ -1,6 +1,7 @@
 package itbrains.az.edu.vegetables.models;
 
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
+import itbrains.az.edu.vegetables.dtos.order.OrderStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -26,24 +27,22 @@ public class Order {
     private Long id;
     @NotBlank private String firstName;
     @NotBlank private String lastName;
-
-
-
     @NotBlank private String addressLine;
     @NotBlank
     private String city;
     @NotBlank private String country;
     @NotBlank private String postcode;
-
     @NotBlank  private String mobile;
     @Email
     @NotBlank private String email;
-
     private Boolean createAccount  = false;
     private Boolean shipToDifferent = false;
-
     private String orderNotes;
-
     @NotNull
     private PaymentMethod paymentMethod;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cart> items = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status = OrderStatus.PENDING;
 }

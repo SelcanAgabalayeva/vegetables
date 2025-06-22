@@ -4,6 +4,7 @@ import itbrains.az.edu.vegetables.dtos.*;
 import itbrains.az.edu.vegetables.dtos.product.ProductDto;
 import itbrains.az.edu.vegetables.dtos.testimonial.TestimonialDto;
 import itbrains.az.edu.vegetables.models.*;
+import itbrains.az.edu.vegetables.repositories.CategoryRepository;
 import itbrains.az.edu.vegetables.services.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -21,10 +22,11 @@ public class HomeController {
     private final FeaturElementService featurElementService;
     private final BannerService bannerService;
     private final TestimonialService testimonialService;
+    private final CategoryRepository categoryRepository;
 
     private final CartService cartService;
     private final OrderService orderService;
-    public HomeController(ProductService productService, CategoryService categoryService, ModelMapper modelMapper, SliderService sliderService, FeaturService featurService, FeaturElementService featurElementService, BannerService bannerService, TestimonialService testimonialService, CartService cartService, OrderService orderService) {
+    public HomeController(ProductService productService, CategoryService categoryService, ModelMapper modelMapper, SliderService sliderService, FeaturService featurService, FeaturElementService featurElementService, BannerService bannerService, TestimonialService testimonialService, CategoryRepository categoryRepository, CartService cartService, OrderService orderService) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.sliderService = sliderService;
@@ -32,6 +34,7 @@ public class HomeController {
         this.featurElementService = featurElementService;
         this.bannerService = bannerService;
         this.testimonialService = testimonialService;
+        this.categoryRepository = categoryRepository;
 
         this.cartService = cartService;
         this.orderService = orderService;
@@ -96,6 +99,8 @@ public class HomeController {
         int start = page * productPageSize;
         int end = Math.min(start + productPageSize, totalProducts);
         List<ProductDto> paginatedProducts = allProducts.subList(start, end);
+        List<Category> categoriess = categoryRepository.findAllWithProducts();
+        model.addAttribute("categoriess", categoriess);
 
         model.addAttribute("products", paginatedProducts);
 

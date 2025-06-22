@@ -30,7 +30,7 @@
             <div class="p-4">
                 <h2 class="mb-3">Products</h2>
                 <div class="mb-3">
-                    <a th:href="@{/admin/category/create}" class="btn btn-outline-success">Create</a>
+                    <a th:href="@{/admin/coupon/create}" class="btn btn-outline-success">Create</a>
                 </div>
 
                 <div class="table-responsive bg-secondary rounded p-3">
@@ -38,19 +38,24 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Name</th>
+                            <th scope="col">Code</th>
+                            <th scope="col">DiscountPercentage</th>
+                            <th scope="col">Active</th>
+
 
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="cat, iterStat : ${categories}">
+                        <tr th:each="cou, iterStat : ${coupons}">
                             <th scope="row" th:text="${iterStat.index + 1}">1</th>
-                            <td th:text="${cat.name}">Name</td>
+                            <td th:text="${cou.code}">Code</td>
+                            <td th:text="${cou.discountPercentage}">DiscountPercentage</td>
+                            <td th:text="${cou.active}">Active</td>
 
                             <td>
-                                <a th:href="@{'/admin/category/edit/' + ${cat.id}}" class="btn btn-outline-warning btn-sm me-1">Update</a>
-                                <a th:href="@{'/admin/category/delete/' + ${cat.id}}" class="btn btn-outline-danger btn-sm"
-                                  >Delete</a>
+                                <a th:href="@{'/admin/coupon/edit/' + ${cou.id}}" class="btn btn-outline-warning btn-sm me-1">Update</a>
+                                <a th:href="@{'/admin/coupon/delete/' + ${cou.id}}" class="btn btn-outline-danger btn-sm"
+                                   >Delete</a>
                             </td>
                         </tr>
                         </tbody>

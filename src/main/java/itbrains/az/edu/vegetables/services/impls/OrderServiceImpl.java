@@ -1,8 +1,10 @@
 package itbrains.az.edu.vegetables.services.impls;
 
-import itbrains.az.edu.vegetables.dtos.CartItemDto;
-import itbrains.az.edu.vegetables.dtos.OrderDto;
+import itbrains.az.edu.vegetables.dtos.order.CartItemDto;
+import itbrains.az.edu.vegetables.dtos.order.OrderDto;
 
+import itbrains.az.edu.vegetables.dtos.order.OrderDashboardDto;
+import itbrains.az.edu.vegetables.dtos.order.OrderStatus;
 import itbrains.az.edu.vegetables.models.Cart;
 import itbrains.az.edu.vegetables.models.Order;
 import itbrains.az.edu.vegetables.models.User;
@@ -11,6 +13,7 @@ import itbrains.az.edu.vegetables.repositories.OrderRepository;
 import itbrains.az.edu.vegetables.repositories.UserRepository;
 import itbrains.az.edu.vegetables.services.CartService;
 import itbrains.az.edu.vegetables.services.OrderService;
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -60,6 +63,12 @@ public class OrderServiceImpl implements OrderService {
         order.setShipToDifferent(dto.getShipToDifferent());
 
         orderRepository.save(order);
+        List<Cart> carts = cartRepository.findByUser(user);
+
+        for (Cart cart : carts) {
+            cart.setOrder(order);
+            cartRepository.save(cart);
+        }
 
     }
 
@@ -68,6 +77,38 @@ public class OrderServiceImpl implements OrderService {
         Order latest = orderRepository.findTopByOrderByIdDesc();
         System.out.println("Latest Order: " + latest);
         return latest;
+    }
+
+    @Override
+    public List<OrderDashboardDto> findAllOrders() {
+        List<OrderDashboardDto> orders = orderRepository.findAll().stream().map(x->modelMapper.map(x,OrderDashboardDto.class)).collect(Collectors.toList());
+        return orders;
+    }
+
+    @Override
+    public void updateStatus(Long id, OrderStatus status) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Order not found"));
+        order.setStatus(status);
+        orderRepository.save(order);
+    }
+
+    @Override
+    public List<CartItemDto> getOrderById(Long id) {
+        List<Cart> orderItems = cartRepository.findByOrder_Id(id);
+        List<CartItemDto> orderDetailDto = orderItems.stream()
+                .map(item -> {
+                    CartItemDto dto = new CartItemDto();
+                    dto.setId(item.getId());
+                    dto.setProductId(item.getProduct().getId());
+                    dto.setName(item.getName());
+                    dto.setImageUrl(item.getImageUrl());
+                    dto.setQuantity(item.getQuantity());
+                    dto.setPrice(item.getPrice());
+                    return dto;
+                }).toList();
+
+        return orderDetailDto;
     }
 
 

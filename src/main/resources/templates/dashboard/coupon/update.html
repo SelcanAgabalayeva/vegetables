@@ -25,26 +25,33 @@
                     <!-- You can leave profile items here if needed -->
                 </div>
             </nav>
-            <!-- Navbar End -->
-
-            <!-- Main Content Start -->
             <div class="p-4">
-
-
                 <div class="table-responsive bg-secondary rounded p-3">
-                    <form method="post">
+                    <form th:action="@{'/admin/coupon/edit/' + ${coupon.id}}" method="post">
                         <div class="form-group">
-                            <input type="text" name="name" class="form-control"  placeholder="Name">
+                            <label>Kupon Kodu:</label>
+                            <input type="text" class="form-control" name="code" th:value="${coupon.code}" required/>
                         </div>
 
-
-
-                        <div class="form-group"><br>
-                            <input class="btn btn-success"  type="submit" value="Create">
+                        <div class="form-group mt-2">
+                            <label>Endirim Faizi (%):</label>
+                            <input type="number" step="0.01" class="form-control" name="discountPercentage" th:value="${coupon.discountPercentage}" required/>
+                        </div>
+                        <div class="form-group mt-2">
+                            <label>Aktivdir?</label>
+                            <select class="form-control" name="active">
+                                <option th:value="true" th:selected="${coupon.active} == true">True</option>
+                                <option th:value="false" th:selected="${coupon.active} == false">False</option>
+                            </select>
+                        </div>
+                        <input type="hidden" name="id" th:value="${coupon.id}"/>
+                        <div class="form-group mt-3">
+                            <input type="submit" class="btn btn-primary" value="Update"/>
                         </div>
                     </form>
                 </div>
             </div>
+
             <!-- Main Content End -->
 
         </div>

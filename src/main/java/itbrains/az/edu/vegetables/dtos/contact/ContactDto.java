@@ -1,4 +1,4 @@
-package itbrains.az.edu.vegetables.dtos;
+package itbrains.az.edu.vegetables.dtos.contact;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

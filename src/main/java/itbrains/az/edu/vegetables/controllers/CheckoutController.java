@@ -1,7 +1,7 @@
 package itbrains.az.edu.vegetables.controllers;
 
-import itbrains.az.edu.vegetables.dtos.CouponDto;
-import itbrains.az.edu.vegetables.dtos.OrderDto;
+import itbrains.az.edu.vegetables.dtos.coupon.CouponDto;
+import itbrains.az.edu.vegetables.dtos.order.OrderDto;
 import itbrains.az.edu.vegetables.models.Cart;
 import itbrains.az.edu.vegetables.services.CartService;
 import itbrains.az.edu.vegetables.services.OrderService;

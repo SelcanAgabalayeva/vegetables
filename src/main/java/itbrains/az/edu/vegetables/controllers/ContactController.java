@@ -1,6 +1,6 @@
 package itbrains.az.edu.vegetables.controllers;
 
-import itbrains.az.edu.vegetables.dtos.ContactDto;
+import itbrains.az.edu.vegetables.dtos.contact.ContactDto;
 import itbrains.az.edu.vegetables.models.Cart;
 import itbrains.az.edu.vegetables.models.User;
 import itbrains.az.edu.vegetables.repositories.CartRepository;

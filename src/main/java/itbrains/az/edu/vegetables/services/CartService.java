@@ -1,6 +1,6 @@
 package itbrains.az.edu.vegetables.services;
 
-import itbrains.az.edu.vegetables.dtos.CartItemDto;
+import itbrains.az.edu.vegetables.dtos.order.CartItemDto;
 import itbrains.az.edu.vegetables.models.Cart;
 
 import java.util.List;

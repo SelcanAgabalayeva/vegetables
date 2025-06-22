@@ -1,4 +1,20 @@
 <!DOCTYPE html>
+<html
+        xmlns:th="http://thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{/dashboard/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body >
+<div layout:fragment="content">
+
+</div>
+
+</body>
+</html>
+<!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
       layout:decorate="~{/dashboard/layout}">
 <head>
@@ -28,36 +44,33 @@
 
             <!-- Main Content Start -->
             <div class="p-4">
-                <h2 class="mb-3">Products</h2>
-                <div class="mb-3">
-                    <a th:href="@{/admin/category/create}" class="btn btn-outline-success">Create</a>
-                </div>
 
                 <div class="table-responsive bg-secondary rounded p-3">
-                    <table class="table table-bordered table-hover text-white">
+                    <table class="table">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Message</th>
+
+
 
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="cat, iterStat : ${categories}">
-                            <th scope="row" th:text="${iterStat.index + 1}">1</th>
-                            <td th:text="${cat.name}">Name</td>
+                        <tr th:each="contact: ${contacts}">
+                            <th th:text="${contact.id}"  scope="row">1</th>
+                            <td th:text="${contact.name}">Mark</td>
+                            <td th:text="${contact.email}">Mark</td>
+                            <td th:text="${contact.message}">Mark</td>
 
-                            <td>
-                                <a th:href="@{'/admin/category/edit/' + ${cat.id}}" class="btn btn-outline-warning btn-sm me-1">Update</a>
-                                <a th:href="@{'/admin/category/delete/' + ${cat.id}}" class="btn btn-outline-danger btn-sm"
-                                  >Delete</a>
-                            </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <!-- Main Content End -->
+
 
         </div>
     </div>

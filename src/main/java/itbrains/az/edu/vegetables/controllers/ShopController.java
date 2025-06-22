@@ -2,7 +2,9 @@ package itbrains.az.edu.vegetables.controllers;
 
 import itbrains.az.edu.vegetables.dtos.product.ProductDto;
 import itbrains.az.edu.vegetables.dtos.ShopDetailDto;
+import itbrains.az.edu.vegetables.models.Category;
 import itbrains.az.edu.vegetables.models.Review;
+import itbrains.az.edu.vegetables.repositories.CategoryRepository;
 import itbrains.az.edu.vegetables.repositories.ReviewRepository;
 import itbrains.az.edu.vegetables.services.CategoryService;
 import itbrains.az.edu.vegetables.services.ProductService;
@@ -19,10 +21,13 @@ public class ShopController {
     private final ProductService productService;
     private final ReviewRepository reviewRepository;
     private final CategoryService categoryService;
-    public ShopController(ProductService productService, ReviewRepository reviewRepository, CategoryService categoryService) {
+    private final CategoryRepository categoryRepository;
+
+    public ShopController(ProductService productService, ReviewRepository reviewRepository, CategoryService categoryService, CategoryRepository categoryRepository) {
         this.productService = productService;
         this.reviewRepository = reviewRepository;
         this.categoryService = categoryService;
+        this.categoryRepository = categoryRepository;
     }
 
     @GetMapping("/shop/detail/{id}")
@@ -33,7 +38,8 @@ public class ShopController {
         model.addAttribute("product", product);
         List<ProductDto> featuredProducts = productService.getTopInCartProducts(5);
         model.addAttribute("featuredProducts", featuredProducts);
-
+        List<Category> categoriess = categoryRepository.findAllWithProducts();
+        model.addAttribute("categoriess", categoriess);
         List<ProductDto> relatedProducts = productService.getProductsByCategoryId(product.getCategory().getId())
                 .stream()
                 .filter(p -> !p.getId().equals(product.getId()))

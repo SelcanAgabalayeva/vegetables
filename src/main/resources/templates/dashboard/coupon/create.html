@@ -11,6 +11,7 @@
 <body>
 <div layout:fragment="content">
     <div class="container-fluid position-relative d-flex p-0">
+        <!-- Content Start -->
         <div class="content w-100">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
@@ -28,33 +29,32 @@
 
             <!-- Main Content Start -->
             <div class="p-4">
-                <h2 class="mb-3">Products</h2>
-                <div class="mb-3">
-                    <a th:href="@{/admin/category/create}" class="btn btn-outline-success">Create</a>
-                </div>
+
 
                 <div class="table-responsive bg-secondary rounded p-3">
-                    <table class="table table-bordered table-hover text-white">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Name</th>
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="code">Endirim Kodu</label>
+                            <input type="text" id="code" name="code" class="form-control" placeholder="Kod daxil edin">
+                        </div>
 
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="cat, iterStat : ${categories}">
-                            <th scope="row" th:text="${iterStat.index + 1}">1</th>
-                            <td th:text="${cat.name}">Name</td>
+                        <div class="form-group">
+                            <label for="discountPercentage">DiscountPercentage (%)</label>
+                            <input type="number" step="0.01" id="discountPercentage" name="discountPercentage" class="form-control" placeholder="Məsələn: 10.5">
+                        </div>
 
-                            <td>
-                                <a th:href="@{'/admin/category/edit/' + ${cat.id}}" class="btn btn-outline-warning btn-sm me-1">Update</a>
-                                <a th:href="@{'/admin/category/delete/' + ${cat.id}}" class="btn btn-outline-danger btn-sm"
-                                  >Delete</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                        <div class="form-group">
+                            <label for="active">Isactive?</label>
+                            <select id="active" name="active" class="form-control">
+                                <option value="true">True</option>
+                                <option value="false">False</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group"><br>
+                            <input class="btn btn-success" type="submit" value="Create">
+                        </div>
+                    </form>
                 </div>
             </div>
             <!-- Main Content End -->
