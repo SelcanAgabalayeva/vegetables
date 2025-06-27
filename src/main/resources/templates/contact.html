@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
       layout:decorate="~{layout}">
 <head>
     <title>Home</title>
@@ -47,21 +47,26 @@
                             <i class="fas fa-map-marker-alt fa-2x text-primary me-4"></i>
                             <div>
                                 <h4>Address</h4>
-                                <p class="mb-2">123 Street New York.USA</p>
+                                <span th:text="${latestOrder != null ? latestOrder.addressLine : 'Address not available'}">
+                Address: 1429 Netus Rd, NY 48247
+            </span>
                             </div>
                         </div>
                         <div class="d-flex p-4 rounded mb-4 bg-white">
                             <i class="fas fa-envelope fa-2x text-primary me-4"></i>
-                            <div>
-                                <h4>Mail Us</h4>
-                                <p class="mb-2">info@example.com</p>
-                            </div>
+                            <p>
+                                <span th:text="${latestOrder != null ? latestOrder.email : 'Email not available'}">
+                Email: Example@gmail.com
+            </span>
+                            </p>
                         </div>
                         <div class="d-flex p-4 rounded bg-white">
                             <i class="fa fa-phone-alt fa-2x text-primary me-4"></i>
                             <div>
                                 <h4>Telephone</h4>
-                                <p class="mb-2">(+012) 3456 7890</p>
+                                <span th:text="${latestOrder != null ? latestOrder.mobile : 'Phone not available'}">
+                Number
+            </span>
                             </div>
                         </div>
                     </div>

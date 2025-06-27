@@ -28,37 +28,40 @@
 
             <!-- Main Content Start -->
             <div class="p-4">
-                <h2 class="mb-3">Products</h2>
-                <div class="mb-3">
-                    <a th:href="@{/admin/coupon/create}" class="btn btn-outline-success">Create</a>
-                </div>
 
                 <div class="table-responsive bg-secondary rounded p-3">
                     <table class="table table-bordered table-hover text-white">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Code</th>
-                            <th scope="col">DiscountPercentage</th>
-                            <th scope="col">Active</th>
-
-
+                            <th scope="col">Comment</th>
+                            <th scope="col">Avatar</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Stars</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="cou, iterStat : ${coupons}">
+                        <tr th:each="review, iterStat : ${reviews}">
                             <th scope="row" th:text="${iterStat.index + 1}">1</th>
-                            <td th:text="${cou.code}">Code</td>
-                            <td th:text="${cou.discountPercentage}">DiscountPercentage</td>
-                            <td th:text="${cou.active}">Active</td>
-
+                            <td th:text="${review.comment}">Comment</td>
                             <td>
-                                <a th:href="@{'/admin/coupon/edit/' + ${cou.id}}" class="btn btn-outline-warning btn-sm me-1">Update</a>
-                                <a th:href="@{'/admin/coupon/delete/' + ${cou.id}}" class="btn btn-outline-danger btn-sm">Delete</a>
+                                <img th:src="@{${review.avatarUrl}}" alt="Avatar"
+                                     style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
+                            </td>
+                            <td th:text="${review.name}">Name</td>
+                            <td th:text="${review.stars}">Stars</td>
+                            <td th:text="${review.date}">Date</td>
+                            <td>
+                                <a th:href="@{'/admin/review/edit/' + ${review.id}}" class="btn btn-outline-warning btn-sm me-1">Update</a>
+                                <a th:href="@{'/admin/review/delete/' + ${review.id}}" class="btn btn-outline-danger btn-sm"
+                       >Delete</a>
                             </td>
                         </tr>
                         </tbody>
                     </table>
+
                 </div>
             </div>
             <!-- Main Content End -->

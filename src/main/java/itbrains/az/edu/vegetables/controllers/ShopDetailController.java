@@ -29,7 +29,7 @@ public class ShopDetailController {
     @GetMapping("/shop-detail")
     public String shopDetails(@PathVariable("id") Long id, Model model) {
         Product product = productRepository.findById(id).orElseThrow();
-        List<Review> reviews = reviewRepository.findByProductId(id); // <-- Bura mühümdür
+        List<Review> reviews = reviewRepository.findByProductId(id);
 
         model.addAttribute("product", product);
         model.addAttribute("reviews", reviews);

@@ -32,9 +32,10 @@
             <div class="p-4">
                 <h2 class="mb-3">Products</h2>
                 <div class="mb-3">
-                    <a th:href="@{/admin/product/create}"
-                       sec:authorize="hasAuthority('product:create')"
+                    <a sec:authorize="hasRole('ADMIN')"
+                       th:href="@{/admin/product/create}"
                        class="btn btn-primary">Məhsul Əlavə Et</a>
+
                 </div>
 
                 <div class="table-responsive bg-secondary rounded p-3">
@@ -69,9 +70,18 @@
                             <td th:text="${product.weight}">Weight</td>
                             <td th:text="${product.minWeight}">Min Weight</td>
                             <td>
-                                <a th:href="@{'/admin/product/edit/' + ${product.id}}" class="btn btn-outline-warning btn-sm me-1">Update</a>
-                                <a th:href="@{'/admin/product/delete/' + ${product.id}}" class="btn btn-outline-danger btn-sm"
-                                  >Delete</a>
+                                <a sec:authorize="hasAnyRole('ADMIN','EDITOR')"
+                                   th:href="@{'/admin/product/edit/' + ${product.id}}"
+                                   class="btn btn-outline-warning btn-sm me-1">
+                                    Update
+                                </a>
+
+                                <!-- Delete düyməsi: yalnız ADMIN görə bilər -->
+                                <a sec:authorize="hasRole('ADMIN')"
+                                   th:href="@{'/admin/product/delete/' + ${product.id}}"
+                                   class="btn btn-outline-danger btn-sm">
+                                    Delete
+                                </a>
                             </td>
                         </tr>
                         <tr th:if="${#lists.isEmpty(products)}">

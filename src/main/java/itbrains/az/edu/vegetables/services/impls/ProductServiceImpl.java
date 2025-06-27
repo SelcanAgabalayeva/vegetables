@@ -103,6 +103,7 @@ public class ProductServiceImpl implements ProductService {
         dto.setId(product.getId());
         dto.setName(product.getName());
         dto.setDescription(product.getDescription());
+        dto.setRate(product.getRate());
         dto.setPrice(product.getPrice());
         dto.setImageUrl(product.getImageUrl());
         if (product.getCategory() != null) {
@@ -209,6 +210,12 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(Long id) {
         Product findProduct =productRepository.findById(id).orElseThrow();
         productRepository.delete(findProduct);
+    }
+
+    @Override
+    public List<ProductDto> searchProductsByName(String query) {
+        List<Product> products = productRepository.findByNameContainingIgnoreCase(query);
+        return products.stream().map(this::mapToDto).collect(Collectors.toList());
     }
 
 

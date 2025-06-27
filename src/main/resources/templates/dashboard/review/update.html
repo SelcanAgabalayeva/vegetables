@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/dashboard/layout}">
+<head>
+    <title>Home</title>
+    <!-- Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid position-relative d-flex p-0">
+        <!-- Content Start -->
+        <div class="content w-100">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <div class="navbar-nav align-items-center ms-auto">
+                    <!-- You can leave profile items here if needed -->
+                </div>
+            </nav>
+            <div class="p-4">
+                <div class="table-responsive bg-secondary rounded p-3">
+                    <form th:action="@{'/admin/review/edit/' + ${review.id}}" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Ad:</label>
+                            <input type="text" class="form-control" name="name" th:value="${review.name}" required/>
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label>Şərh:</label>
+                            <textarea class="form-control" name="comment" rows="4" required
+                                      th:text="${review.comment}"></textarea>
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label>Ulduz sayı (1-5):</label>
+                            <input type="number" class="form-control" name="stars" min="1" max="5" th:value="${review.stars}" required/>
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label>Tarix:</label>
+                            <input type="date" class="form-control" name="date" th:value="${review.date}" required/>
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label>Avatar (şəkil):</label>
+                            <br/>
+                            <img th:if="${review.avatarUrl != null}" th:src="@{${review.avatarUrl}}" alt="Avatar" style="width:50px; height:50px; object-fit:cover; border-radius:5px;"/>
+                            <input type="file" class="form-control mt-1" name="avatarFile"/>
+                            <small class="form-text text-muted">Yeni şəkil yükləmək istəmirsinizsə, buranı boş buraxın.</small>
+                        </div>
+
+
+                        <input type="hidden" name="id" th:value="${review.id}"/>
+
+                        <div class="form-group mt-3">
+                            <input type="submit" class="btn btn-primary" value="Yenilə"/>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <!-- Main Content End -->
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

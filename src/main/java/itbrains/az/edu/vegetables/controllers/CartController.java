@@ -60,6 +60,7 @@ public class CartController {
     @PostMapping("/cart/add")
     public String addToCart(@RequestParam Long productId, Principal principal) {
         if (principal == null) {
+            // İstifadəçi login deyilsə, login səhifəsinə yönləndir
             return "redirect:/login";
         }
 
@@ -67,6 +68,7 @@ public class CartController {
         cartService.addToCart(username, productId);
         return "redirect:/cart";
     }
+
 
     @PostMapping("/update")
     public String updateQuantity(@RequestParam Long productId,

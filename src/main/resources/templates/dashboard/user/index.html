@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{/dashboard/layout}">
+<head>
+    <title>Home</title>
+    <!-- Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid position-relative d-flex p-0">
+        <div class="content w-100">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <div class="navbar-nav align-items-center ms-auto">
+                    <!-- You can leave profile items here if needed -->
+                </div>
+            </nav>
+            <!-- Navbar End -->
+
+            <!-- Main Content Start -->
+            <div class="p-4">
+
+            <h2 class="mb-4 text-center">İstifadəçi İdarəetmə Paneli</h2>
+
+            <table class="table table-bordered table-hover shadow rounded">
+                <thead class="table-primary text-center">
+                <tr>
+                    <th>#</th>
+                    <th>İstifadəçi adı</th>
+                    <th>Email</th>
+                    <th>Rollar</th>
+                    <th>Əməliyyatlar</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user, iterStat : ${users}" class="text-center align-middle">
+                    <td th:text="${iterStat.index + 1}"></td>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td>
+                        <span th:each="role : ${user.roles}" class="badge bg-info text-dark me-1" th:text="${role.name}"></span>
+                    </td>
+                    <td>
+                        <form th:action="@{/admin/users/delete/{id}(id=${user.id})}" method="post" style="display:inline-block;">
+                            <button type="submit" class="btn btn-danger btn-sm" title="Sil" onclick="return confirm('İstifadəçini silmək istədiyinizə əminsiniz?')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+
+                        <form th:action="@{/admin/users/role/{id}(id=${user.id})}" method="post" style="display:inline-block; margin-left:5px;">
+                            <select name="role" class="form-select form-select-sm" onchange="this.form.submit()">
+                                <option th:selected="${#lists.contains(user.roles, 'ROLE_USER')}" value="ROLE_USER">User</option>
+                                <option th:selected="${#lists.contains(user.roles, 'ROLE_ADMIN')}" value="ROLE_ADMIN">Admin</option>
+                                <option th:selected="${#lists.contains(user.roles, 'ROLE_EDITOR')}" value="ROLE_EDITOR">Editor</option>
+                            </select>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -33,4 +33,6 @@ public interface ProductService {
     void updateProduct(Long id, ProductUpdateDto productUpdateDto);
 
     void deleteProduct(Long id);
+
+    List<ProductDto> searchProductsByName(String query);
 }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{/dashboard/layout}">
+<head>
+    <title>Role Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid position-relative d-flex p-0">
+        <div class="content w-100">
+            <br><br>
+            <h2>Rol Siyahısı</h2>
+            <!-- Rolların cədvəli -->
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Adı</th>
+                    <th>İstifadəçi sayı</th>
+                    <th>Əməliyyatlar</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="role : ${roles}">
+                    <td th:text="${role.id}"></td>
+                    <td th:text="${role.name}"></td>
+                    <td th:text="${#lists.size(role.users)}"></td>
+                    <td>
+
+                        <a th:href="@{'/admin/roles/delete/' + ${role.id}}" class="btn btn-sm btn-danger"
+                           th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                            <i class="fas fa-trash-alt"></i> Sil
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

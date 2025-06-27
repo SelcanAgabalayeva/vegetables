@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+<head>
+    <title>Home</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <!-- Page Header -->
+  <br><br><br> <br><br><br> <br><br><br>
+
+    <div class="container mb-5" th:if="${currentUser != null}">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card border-success shadow rounded-4">
+                    <div class="card-body text-center py-4">
+                        <h4 class="text-success fw-bold mb-3">Sizin Profil</h4>
+                        <i class="fas fa-user-circle fa-3x text-success mb-3"></i>
+                        <h5 th:text="${currentUser.username}" class="mb-2"></h5>
+                        <p th:text="${currentUser.email}" class="text-muted mb-0"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Selection Card -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <div class="card shadow-lg border-0 rounded-4">
+                    <div class="card-body text-center py-5 px-4">
+                        <h2 class="mb-4 text-dark fw-bold">İstifadəçi ilə daxil olun</h2>
+
+                        <div class="d-flex flex-wrap justify-content-center gap-3 mb-5">
+                            <div th:each="user : ${users}">
+                                <a th:href="@{/autologin(username=${user.username})}" class="btn btn-outline-primary rounded-pill px-4 py-2">
+                                    <i class="fas fa-user me-2"></i>
+                                    <span th:text="${user.username}">istifadəçi</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <a href="/register" class="btn btn-success rounded-pill px-5 py-3 fs-6">
+                            <i class="fas fa-user-plus me-2"></i>
+                            Qeydiyyatdan keç
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

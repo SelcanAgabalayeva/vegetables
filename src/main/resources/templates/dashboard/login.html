@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+<head>
+    <title>Home</title>
+</head>
+
+<body>
+<div layout:fragment="content"><br><br><br><br><br>
+
+    <section class="main-content py-5" style="background: linear-gradient(135deg, #f0f4ff, #e6ffe6);">
+        <div class="container">
+            <div class="row justify-content-center g-4">
+                <!-- Login -->
+                <div class="col-md-6 col-lg-5">
+                    <div class="card border-0 shadow-lg rounded-5 p-4 bg-white h-100">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-sign-in-alt fa-2x text-primary mb-2"></i>
+                            <h4 class="text-primary fw-bold">Login to Your Account</h4>
+                            <p class="small text-muted">Welcome back! Please login below.</p>
+                        </div>
+                        <h2>Admin Panelə Giriş</h2>
+                        <form th:action="@{/admin/login}" method="post">
+                            <label>İstifadəçi adı: <input type="text" name="username" /></label><br/>
+                            <label>Şifrə: <input type="password" name="password" /></label><br/>
+                            <button type="submit">Giriş</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

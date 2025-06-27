@@ -125,5 +125,12 @@ public class HomeController {
         return "testimonial.html";
 
     }
+    @GetMapping("/search")
+    public String searchProducts(@RequestParam("query") String query, Model model) {
+        List<ProductDto> results = productService.searchProductsByName(query);
+        model.addAttribute("product", results);
+        return "search.html";
+    }
+
 
 }

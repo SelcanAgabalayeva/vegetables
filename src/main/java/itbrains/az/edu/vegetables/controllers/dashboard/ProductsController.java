@@ -6,6 +6,7 @@ import itbrains.az.edu.vegetables.dtos.product.ProductDashboardDto;
 import itbrains.az.edu.vegetables.dtos.product.ProductUpdateDto;
 import itbrains.az.edu.vegetables.services.CategoryService;
 import itbrains.az.edu.vegetables.services.ProductService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,13 +27,15 @@ public class ProductsController {
     }
 
     @GetMapping("/admin/product")
-
+    @PreAuthorize("hasAnyRole('ADMIN','EDITOR','VIEWER')")
     public String getAll(Model model) {
+
         List<ProductDashboardDto> allProduct = productService.getProductAll();
         model.addAttribute("products", allProduct);
         return "/dashboard/product/index";
     }
     @GetMapping("/admin/product/create")
+    @PreAuthorize("hasRole('ADMIN')")
     public String create(Model model) {
         model.addAttribute("product", new ProductCreateDto());
         model.addAttribute("categories", categoryService.getAllCategories());
@@ -41,12 +44,15 @@ public class ProductsController {
 
 
     @PostMapping("/admin/product/create")
+    @PreAuthorize("hasRole('ADMIN')")
+
     public String create(@ModelAttribute("product") ProductCreateDto productCreateDto) {
         productService.createProduct(productCreateDto);
         return "redirect:/admin/product";
 
     }
     @GetMapping("/admin/product/edit/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
     public String edit(@PathVariable Long id, Model model) {
         ProductUpdateDto productUpdateDto = productService.getUpdateProduct(id);
         List<CategoryDashboardDto> categoryDtoList = categoryService.getDashboardCategories();
@@ -58,15 +64,18 @@ public class ProductsController {
     }
 
     @PostMapping("/admin/product/edit/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','EDITOR')")
     public String edit(@PathVariable Long id, @ModelAttribute("product") ProductUpdateDto productUpdateDto) {
         productService.updateProduct(id, productUpdateDto);
         return "redirect:/admin/product";
     }
     @GetMapping("/admin/product/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String delete(@PathVariable("id") Long id){
         return  "/dashboard/product/delete.html";
     }
     @PostMapping("/admin/product/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String mdelete(@PathVariable("id") Long id) {
         productService.deleteProduct(id);
         return "redirect:/admin/product";

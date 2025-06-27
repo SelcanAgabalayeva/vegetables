@@ -1,6 +1,7 @@
 package itbrains.az.edu.vegetables.controllers;
 
 import itbrains.az.edu.vegetables.dtos.RegisterDto;
+import itbrains.az.edu.vegetables.models.User;
 import itbrains.az.edu.vegetables.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

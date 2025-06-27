@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+<head>
+  <title>Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+
+<body>
+<div layout:fragment="content">
+
+  <!-- Single Page Header start -->
+  <div class="container-fluid page-header py-5 mb-5 bg-white">
+    <h1 class="text-center display-6" style="color: white;">Search</h1>
+  </div>
+
+
+
+  <!-- Single Page Header End -->
+
+  <!-- Product Cards Section -->
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4" th:each="product : ${product}">
+        <div class="card h-100 shadow-sm border-0">
+          <img th:src="${product.imageUrl}" class="card-img-top" alt="Product Image" style="object-fit: cover; height: 250px;">
+          <div class="card-body">
+            <h5 class="card-title" th:text="${product.name}">Product Name</h5>
+            <p class="card-text text-muted" th:text="${product.description}">Product Description</p>
+            <p class="fw-bold text-primary" th:text="'$' + ${product.price}">Price</p>
+          </div>
+          <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between align-items-center">
+            <div>
+              <i th:each="i : ${#numbers.sequence(1,5)}"
+                 th:class="${i <= T(java.lang.Math).floor(product.rate)} ?
+                     'fa fa-star text-primary' :
+                     (${i - product.rate <= 0.5} ?
+                         'fa fa-star-half-alt text-primary' :
+                         'fa fa-star text-muted')"
+                 style="margin-right: 2px;"></i>
+            </div>
+            <span class="badge bg-secondary" th:text="${product.category.name}">Category</span>
+            <form action="/cart/add" method="post" th:object="${product}">
+              <input type="hidden" name="productId" th:value="${product.id}" />
+              <button type="submit" class="btn border border-secondary rounded-pill px-3 text-primary">
+                <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+              </button>
+            </form>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+</div>
+</body>
+</html>
