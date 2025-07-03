@@ -30,7 +30,7 @@ public class SecurityConfig {
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
         return (request, response, accessDeniedException) -> {
-            response.sendRedirect("/");  // <-- Ana səhifəyə yönləndir
+            response.sendRedirect("/");
         };
     }
 

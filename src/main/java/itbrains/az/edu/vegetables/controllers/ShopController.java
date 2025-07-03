@@ -1,7 +1,7 @@
 package itbrains.az.edu.vegetables.controllers;
 
 import itbrains.az.edu.vegetables.dtos.product.ProductDto;
-import itbrains.az.edu.vegetables.dtos.ShopDetailDto;
+import itbrains.az.edu.vegetables.dtos.product.ShopDetailDto;
 import itbrains.az.edu.vegetables.models.Category;
 import itbrains.az.edu.vegetables.models.Review;
 import itbrains.az.edu.vegetables.repositories.CategoryRepository;

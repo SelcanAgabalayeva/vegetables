@@ -1,9 +1,9 @@
 package itbrains.az.edu.vegetables.services.impls;
 
-import itbrains.az.edu.vegetables.dtos.BestSellerProductDto;
+import itbrains.az.edu.vegetables.dtos.product.BestSellerProductDto;
 import itbrains.az.edu.vegetables.dtos.category.CategoryDto;
 import itbrains.az.edu.vegetables.dtos.product.ProductDto;
-import itbrains.az.edu.vegetables.dtos.ShopDetailDto;
+import itbrains.az.edu.vegetables.dtos.product.ShopDetailDto;
 import itbrains.az.edu.vegetables.dtos.product.ProductCreateDto;
 import itbrains.az.edu.vegetables.dtos.product.ProductDashboardDto;
 import itbrains.az.edu.vegetables.dtos.product.ProductUpdateDto;
